@@ -1,0 +1,18 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  db:
+    image: postgis/postgis:15-3.3-alpine
+    container_name: immo_postgis
+    environment:
+      POSTGRES_USER: immo_user
+      POSTGRES_PASSWORD: immo_secret
+      POSTGRES_DB: immo_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pgdata:
