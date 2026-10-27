@@ -18,12 +18,13 @@ const pool = new Pool({
 });
 
 // Schéma de validation pour forcer la structure de sortie de l'IA
+
 const ListingSchema = z.object({
   price_eur: z.number(),
   surface_m2: z.number(),
   rooms: z.number(),
   address: z.string(),
-  defects: z.array(z.string()).optional(),
+  defects: z.array(z.string()).nullable().default([]),
 });
 
 async function geocodeAddress(address: string) {
