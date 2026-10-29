@@ -23,6 +23,21 @@ interface Listing {
   lat: number;
 }
 
+interface HistoryEntry {
+  analyzed_at: string;
+  total_listings: number;
+  opportunities_found: number;
+  avg_price_gap: number;
+  total_potential_gain: number;
+}
+
+interface Stats {
+  total_analyses: number;
+  total_opportunities: number;
+  total_gain: number;
+  avg_gap: number;
+}
+
 interface Filters {
   city: string;
   minPrice: string;
@@ -35,6 +50,8 @@ export default function Dashboard() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
   const [filters, setFilters] = useState<Filters>({
     city: "",
     minPrice: "",
@@ -57,8 +74,19 @@ export default function Dashboard() {
       .catch(() => setLoading(false));
   };
 
+  const fetchHistory = () => {
+    fetch("/api/history")
+      .then((res) => res.json())
+      .then((data) => {
+        setHistory(data.history || []);
+        setStats(data.stats || null);
+      })
+      .catch(() => {});
+  };
+
   useEffect(() => {
     fetchListings();
+    fetchHistory();
   }, []);
 
   const runAnalysis = async () => {
@@ -72,6 +100,7 @@ export default function Dashboard() {
           opportunities: data.opportunities,
         });
         fetchListings();
+        fetchHistory();
       }
     } catch (err) {
       console.error(err);
@@ -80,7 +109,6 @@ export default function Dashboard() {
     }
   };
 
-  // Filtrage client-side
   const filteredListings = listings.filter((l) => {
     if (
       filters.city &&
@@ -175,6 +203,104 @@ export default function Dashboard() {
           </div>
         )}
 
+        {/* Statistiques globales */}
+        {stats && stats.total_analyses > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+              <div className="text-xs text-gray-500 uppercase font-medium">
+                Analyses
+              </div>
+              <div className="text-2xl font-bold text-gray-900 mt-1">
+                {stats.total_analyses}
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+              <div className="text-xs text-gray-500 uppercase font-medium">
+                Opportunités
+              </div>
+              <div className="text-2xl font-bold text-green-600 mt-1">
+                {stats.total_opportunities}
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+              <div className="text-xs text-gray-500 uppercase font-medium">
+                Gain potentiel cumulé
+              </div>
+              <div className="text-2xl font-bold text-blue-600 mt-1">
+                {stats.total_gain.toLocaleString("fr-FR")} €
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200">
+              <div className="text-xs text-gray-500 uppercase font-medium">
+                Écart moyen
+              </div>
+              <div className="text-2xl font-bold text-orange-600 mt-1">
+                {stats.avg_gap.toFixed(1)}%
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Historique */}
+        {history.length > 0 && (
+          <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 mb-8">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">
+              Historique des analyses
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                      Date
+                    </th>
+                    <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                      Annonces
+                    </th>
+                    <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                      Opportunités
+                    </th>
+                    <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                      Écart moy.
+                    </th>
+                    <th className="text-left py-2 px-3 text-gray-500 font-medium">
+                      Gain potentiel
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {history.map((h, i) => (
+                    <tr
+                      key={i}
+                      className="border-b border-gray-100 hover:bg-gray-50"
+                    >
+                      <td className="py-2 px-3">
+                        {new Date(h.analyzed_at).toLocaleDateString("fr-FR", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </td>
+                      <td className="py-2 px-3">{h.total_listings}</td>
+                      <td className="py-2 px-3 font-semibold text-green-600">
+                        {h.opportunities_found}
+                      </td>
+                      <td className="py-2 px-3">
+                        {parseFloat(String(h.avg_price_gap)).toFixed(1)}%
+                      </td>
+                      <td className="py-2 px-3 font-semibold text-blue-600">
+                        {h.total_potential_gain.toLocaleString("fr-FR")} €
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
         {/* Barre de filtres */}
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6 border border-gray-200">
           <div className="flex flex-wrap gap-3 items-end">
@@ -212,7 +338,7 @@ export default function Dashboard() {
               </label>
               <input
                 type="number"
-                placeholder="∞"
+                placeholder=""
                 value={filters.maxPrice}
                 onChange={(e) =>
                   setFilters({ ...filters, maxPrice: e.target.value })
