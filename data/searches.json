@@ -1,0 +1,32 @@
+{
+  "searches": [
+    {
+      "id": "seloger-oise-maison",
+      "platform": "seloger",
+      "name": "Maisons Oise",
+      "url": "https://www.seloger.com/classified-search?distributionTypes=Buy&estateTypes=House&locations=AD06FR61&priceMax=300000&priceMin=100000",
+      "enabled": true
+    },
+    {
+      "id": "seloger-compiegne-maison",
+      "platform": "seloger",
+      "name": "Maisons Compiègne",
+      "url": "https://www.seloger.com/classified-search?distributionTypes=Buy&estateTypes=House&locations=AD08FR24090&priceMax=300000&priceMin=100000",
+      "enabled": true
+    },
+    {
+      "id": "seloger-soissons-maison",
+      "platform": "seloger",
+      "name": "Maisons Soissons",
+      "url": "https://www.seloger.com/classified-search?distributionTypes=Buy&estateTypes=House&locations=AD08FR1137&priceMax=300000&priceMin=100000",
+      "enabled": true
+    },
+    {
+      "id": "leboncoin-oise-maison",
+      "platform": "leboncoin",
+      "name": "Maisons Oise",
+      "url": "https://www.leboncoin.fr/recherche?text=maison+compi%C3%A8gne&locations=d_60",
+      "enabled": true
+    }
+  ]
+}
