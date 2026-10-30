@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+const ListingsMap = dynamic(() => import("@/components/Map"), { ssr: false });
 
 interface Listing {
   id: number;
@@ -26,6 +26,10 @@ interface Listing {
   estimated_works?: number;
   estimated_rent?: number;
   gross_yield?: number;
+  plu_zone_code?: string;
+  plu_zone_type?: string;
+  plu_constructibilite?: string;
+  plu_conseil?: string;
 }
 
 interface HistoryEntry {
@@ -411,7 +415,7 @@ export default function Dashboard() {
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Carte des opportunités
           </h2>
-          <Map listings={filteredListings} />
+          <ListingsMap listings={filteredListings} />
         </div>
 
         {/* Opportunités */}
