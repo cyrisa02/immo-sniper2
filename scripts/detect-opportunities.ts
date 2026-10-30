@@ -25,28 +25,31 @@ async function sendEmailAlert(listings: any[]) {
   if (listings.length === 0) return;
 
   const emailContent = listings
-    .map(
-      (listing) => `
+    .map((listing) => {
+      const pluLine = listing.plu_zone_code
+        ? `🏗️ Zone PLU: ${listing.plu_zone_code} (${listing.plu_zone_type}) - ${listing.plu_constructibilite || ""}\n`
+        : "";
+
+      return `
 🏠 ${listing.address}
 💰 Prix: ${listing.price_eur.toLocaleString("fr-FR")} €
 📐 Surface: ${listing.surface_m2} m²
-📉 Prix au m²: ${listing.listing_price_m2.toFixed(0)} € (quartier: ${listing.dvf_avg_price_m2.toFixed(0)} €)
-📊 Sous-évaluation: ${listing.price_gap_percent.toFixed(1)}%
-💵 Potentiel: ${((listing.dvf_avg_price_m2 - listing.listing_price_m2) * listing.surface_m2).toLocaleString("fr-FR")} €
+📉 Prix au m²: ${Number(listing.listing_price_m2 || 0).toFixed(0)} € (quartier: ${Number(listing.dvf_avg_price_m2 || 0).toFixed(0)} €)
+📊 Sous-évaluation: ${Number(listing.price_gap_percent || 0).toFixed(1)}%
+💵 Potentiel: ${((Number(listing.dvf_avg_price_m2 || 0) - Number(listing.listing_price_m2 || 0)) * listing.surface_m2).toLocaleString("fr-FR")} €
 
-🔧 Travaux estimés: ${listing.estimated_works?.toLocaleString("fr-FR") || 0} €
-🏠 Loyer potentiel: ${listing.estimated_rent || 0} €/mois
- Rentabilité brute: ${listing.gross_yield?.toFixed(1) || 0}%
-${listing.dpe ? `🏷️ DPE: ${listing.dpe}` : ""}
-
-${listing.photo_analysis ? `📸 Diagnostic photos:\n${listing.photo_analysis}\n` : ""}
+🔧 Travaux estimés: ${Number(listing.estimated_works || 0).toLocaleString("fr-FR")} €
+🏠 Loyer potentiel: ${Number(listing.estimated_rent || 0)} €/mois
+📊 Rentabilité brute: ${Number(listing.gross_yield || 0).toFixed(1)}%
+${listing.dpe ? `🏷️ DPE: ${listing.dpe}\n` : ""}${pluLine}
+${listing.photo_analysis ? ` Diagnostic photos:\n${listing.photo_analysis}\n` : ""}
 💬 Pitch IA:
 ${listing.ai_pitch}
 
 🔗 Voir l'annonce: ${listing.url}
 ---
-  `,
-    )
+  `;
+    })
     .join("\n");
 
   try {
@@ -66,7 +69,7 @@ ${listing.ai_pitch}
     });
     console.log("✅ Email envoyé avec succès");
   } catch (err) {
-    console.error("❌ Erreur envoi email:", err);
+    console.error(" Erreur envoi email:", err);
   }
 }
 
@@ -79,27 +82,31 @@ async function sendTelegramAlert(listings: any[]) {
   const text = listings
     .map((l) => {
       const works = l.estimated_works
-        ? `🔧 Travaux : ${l.estimated_works.toLocaleString("fr-FR")} €\n`
+        ? `🔧 Travaux : ${Number(l.estimated_works).toLocaleString("fr-FR")} €\n`
         : "";
       const rent = l.estimated_rent
-        ? ` Loyer : ${l.estimated_rent} €/mois\n`
+        ? `🏠 Loyer : ${Number(l.estimated_rent)} €/mois\n`
         : "";
       const yield_ = l.gross_yield
-        ? `📊 Rentabilité : <b>${l.gross_yield.toFixed(1)}%</b>\n`
+        ? `📊 Rentabilité : <b>${Number(l.gross_yield).toFixed(1)}%</b>\n`
         : "";
       const dpe = l.dpe && l.dpe !== "inconnu" ? `🏷️ DPE : ${l.dpe}\n` : "";
+      const plu = l.plu_zone_code
+        ? `🏗️ Zone PLU : <b>${l.plu_zone_code}</b> (${l.plu_zone_type}) - ${l.plu_constructibilite || ""}\n`
+        : "";
       const photo = l.photo_analysis
         ? `📸 <i>${l.photo_analysis.substring(0, 200)}...</i>\n`
         : "";
 
       return (
         `🏠 <b>${l.address}</b>\n` +
-        `💰 ${l.price_eur.toLocaleString("fr-FR")} € (${l.listing_price_m2?.toFixed(0)} €/m²)\n` +
-        `📉 <b>${l.price_gap_percent.toFixed(1)}%</b> sous le marché\n` +
+        `💰 ${l.price_eur.toLocaleString("fr-FR")} € (${Number(l.listing_price_m2 || 0).toFixed(0)} €/m²)\n` +
+        ` <b>${Number(l.price_gap_percent || 0).toFixed(1)}%</b> sous le marché\n` +
         works +
         rent +
         yield_ +
         dpe +
+        plu +
         photo +
         `💬 ${l.ai_pitch}\n` +
         `🔗 <a href="${l.url}">Voir l'annonce</a>`
@@ -309,6 +316,7 @@ async function recordAnalysisHistory(newListings: any[], opportunities: any[]) {
     `📊 Historique enregistré : ${totalListings} annonces, ${totalOpp} opportunités, ${totalGain.toLocaleString("fr-FR")}€ de gain potentiel`,
   );
 }
+
 // ============================================================
 // REQUÊTE PLU (Urbanisme)
 // ============================================================
@@ -326,29 +334,62 @@ async function getPluInfo(lat: number, lon: number): Promise<PluInfo | null> {
   if (!lat || !lon) return null;
 
   try {
-    // Trouver la zone PLU contenant ce point
-    const result = await pool.query(
-      `SELECT zone_code, zone_libelle, zone_type, commune
-       FROM plu_zones
-       WHERE ST_Contains(geom, ST_SetSRID(ST_MakePoint($1, $2), 4326))
-       LIMIT 1`,
+    // 1. Trouver la commune la plus proche (par distance au centroïde)
+    // ⚠️ DISTINCT ON (PostgreSQL) au lieu de SELECT DISTINCT + ORDER BY
+    const communeResult = await pool.query(
+      `
+      SELECT DISTINCT ON (insee_code) insee_code, commune
+      FROM plu_zones
+      ORDER BY insee_code, ST_Distance(
+        geom, 
+        ST_SetSRID(ST_MakePoint($1, $2), 4326)
+      )
+      LIMIT 1
+    `,
       [lon, lat],
     );
 
-    if (result.rows.length === 0) return null;
+    if (communeResult.rows.length === 0) return null;
 
-    const zone = result.rows[0];
+    const commune = communeResult.rows[0];
 
-    // Interprétation des zones PLU par un LLM
-    const interpretation = await interpretPluZone(zone);
+    // 2. Déterminer la zone : UA si proche du centroïde UA, sinon UB
+    const centerResult = await pool.query(
+      `
+      SELECT ST_X(ST_Centroid(geom)) as cx, ST_Y(ST_Centroid(geom)) as cy
+      FROM plu_zones
+      WHERE insee_code = $1 AND zone_code = 'UA'
+      LIMIT 1
+    `,
+      [commune.insee_code],
+    );
+
+    let zoneCode = "UB"; // défaut : zone résidentielle
+    if (centerResult.rows.length > 0) {
+      const cx = Number(centerResult.rows[0].cx);
+      const cy = Number(centerResult.rows[0].cy);
+      const dist = Math.sqrt(Math.pow(lon - cx, 2) + Math.pow(lat - cy, 2));
+      // Si à moins de 0.015 degré (~1.5km) du centre → UA
+      zoneCode = dist < 0.015 ? "UA" : "UB";
+    }
+
+    // 3. Récupérer les règles métier
+    const rulesResult = await pool.query(
+      "SELECT * FROM plu_rules WHERE zone_code = $1",
+      [zoneCode],
+    );
+
+    if (rulesResult.rows.length === 0) return null;
+
+    const rule = rulesResult.rows[0];
 
     return {
-      zone_code: zone.zone_code,
-      zone_libelle: zone.zone_libelle,
-      zone_type: zone.zone_type,
-      commune: zone.commune,
-      constructibilite: interpretation.constructibilite,
-      conseil_investissement: interpretation.conseil_investissement,
+      zone_code: zoneCode,
+      zone_libelle: rule.zone_type,
+      zone_type: rule.zone_type,
+      commune: commune.commune,
+      constructibilite: rule.constructibilite,
+      conseil_investissement: rule.conseil_investissement,
     };
   } catch (err: any) {
     console.log(`   ️  Erreur requête PLU: ${err.message}`);
@@ -356,62 +397,6 @@ async function getPluInfo(lat: number, lon: number): Promise<PluInfo | null> {
   }
 }
 
-async function interpretPluZone(zone: any): Promise<{
-  constructibilite: string;
-  conseil_investissement: string;
-}> {
-  try {
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: `Expert en urbanisme français. Tu interprètes les zones PLU pour des investisseurs immobiliers.
-Règles :
-- Réponds en 2 phrases maximum pour chaque champ.
-- Sois factuel, pas de jargon.
-- Utilise UNIQUEMENT le code de zone fourni.
-
-Codes de zones PLU :
-- UA, UB, UC, UD : zones urbaines (déjà construites)
-- 1AU, 2AU : zones à urbaniser (constructibles sous conditions)
-- A : zones agricoles (non constructibles sauf dérogation)
-- N : zones naturelles (non constructibles)
-- Zones avec suffixe "p" = secteur de projet`,
-        },
-        {
-          role: "user",
-          content: `Zone PLU : ${zone.zone_code} (${zone.zone_libelle || "non spécifié"})
-Type : ${zone.zone_type}
-Commune : ${zone.commune}
-
-Donne-moi :
-1. constructibilite : Peut-on construire ou étendre sur cette zone ? (1 phrase)
-2. conseil_investissement : Quel est l'intérêt pour un investisseur ? (1 phrase)
-
-Réponds en JSON : {"constructibilite": "...", "conseil_investissement": "..."}`,
-        },
-      ],
-      model: "qwen/qwen3.8-27b",
-      max_tokens: 150,
-    });
-
-    const content = completion.choices[0].message.content || "{}";
-    // Extraire le JSON de la réponse
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
-    }
-    return {
-      constructibilite: "Zone non documentée",
-      conseil_investissement: "Vérifier le PLU en mairie",
-    };
-  } catch {
-    return {
-      constructibilite: "Zone non documentée",
-      conseil_investissement: "Vérifier le PLU en mairie",
-    };
-  }
-}
 // ============================================================
 // ANALYSE PRINCIPALE
 // ============================================================
@@ -420,7 +405,7 @@ async function detectOpportunities(sendEmail = false) {
   console.log("🔍 Analyse des opportunités immobilières...");
 
   const listingsResult = await pool.query(`
-    SELECT id, url, price_eur, surface_m2, rooms, address, geom, photos, description, title
+    SELECT id, url, price_eur, surface_m2, rooms, address, geom, photos, description, title, lat, lon
     FROM listings
     WHERE dvf_avg_price_m2 IS NULL
   `);
@@ -435,7 +420,7 @@ async function detectOpportunities(sendEmail = false) {
     // 📸 Analyser les photos si présentes
     let photoAnalysis = null;
     if (listing.photos && listing.photos.length > 0) {
-      console.log(`    Analyse de ${listing.photos.length} photo(s)...`);
+      console.log(`   📸 Analyse de ${listing.photos.length} photo(s)...`);
       photoAnalysis = await analyzePhotos(listing.photos);
       if (photoAnalysis) {
         console.log(
@@ -448,6 +433,7 @@ async function detectOpportunities(sendEmail = false) {
       `SELECT price_eur, surface_m2, address, mutation_date
        FROM dvf_sales
        WHERE ST_DWithin(geom, $1, 500)
+         AND (price_eur / NULLIF(surface_m2, 0)) BETWEEN 500 AND 5000
        ORDER BY mutation_date DESC
        LIMIT 10`,
       [listing.geom],
@@ -475,7 +461,7 @@ async function detectOpportunities(sendEmail = false) {
     const isUnderpriced = priceGapPercent < -10 && priceGapPercent > -50;
 
     console.log(
-      `   📈 Quartier: ${avgPriceM2.toFixed(0)}€/m² | 🏷️ Listing: ${listingPriceM2.toFixed(0)}€/m² | 📊 Écart: ${priceGapPercent.toFixed(1)}%`,
+      `   📈 Quartier: ${avgPriceM2.toFixed(0)}€/m² | ️ Listing: ${listingPriceM2.toFixed(0)}€/m² | 📊 Écart: ${priceGapPercent.toFixed(1)}%`,
     );
 
     if (isUnderpriced) {
@@ -490,17 +476,21 @@ async function detectOpportunities(sendEmail = false) {
       console.log(
         `      DPE: ${profitability.dpe} | Travaux: ${profitability.estimated_works.toLocaleString("fr-FR")}€ | Loyer: ${profitability.estimated_rent}€/mois | Rentabilité: ${profitability.gross_yield.toFixed(1)}%`,
       );
+
       // 🏗️ Requête PLU (si coordonnées disponibles)
       let pluInfo: PluInfo | null = null;
-      if (listing.lat && listing.lon) {
+      const lat = Number(listing.lat);
+      const lon = Number(listing.lon);
+      if (lat && lon) {
         console.log("   🏗️  Consultation du PLU...");
-        pluInfo = await getPluInfo(Number(listing.lat), Number(listing.lon));
+        pluInfo = await getPluInfo(lat, lon);
         if (pluInfo) {
           console.log(
             `      Zone: ${pluInfo.zone_code} (${pluInfo.zone_type}) - ${pluInfo.constructibilite}`,
           );
         }
       }
+
       const comparableText = comparableSales
         .slice(0, 3)
         .map(
@@ -516,6 +506,9 @@ async function detectOpportunities(sendEmail = false) {
       const needsVerification = priceGapPercent < -40;
       const photoContext = photoAnalysis
         ? `\n\n📸 DIAGNOSTIC PHOTOS :\n${photoAnalysis}`
+        : "";
+      const pluContext = pluInfo
+        ? `\n\n️ URBANISME (PLU) :\n- Zone: ${pluInfo.zone_code} (${pluInfo.zone_type})\n- Constructibilité: ${pluInfo.constructibilite}\n- Conseil: ${pluInfo.conseil_investissement}`
         : "";
 
       // 🎯 Prompt IA enrichi avec PLU
@@ -551,7 +544,38 @@ Rédige un message WhatsApp au propriétaire. Dis-lui qu'il passe à côté de $
         model: "qwen/qwen3.8-27b",
       });
 
-      //  Éviter les doublons d'alerte
+      const aiPitch = completion.choices[0].message.content || "";
+
+      // 💾 Sauvegarde en base avec PLU
+      await pool.query(
+        `UPDATE listings SET 
+           dvf_avg_price_m2 = $1, listing_price_m2 = $2, price_gap_percent = $3, 
+           is_underpriced = TRUE, ai_pitch = $4, comparable_sales_count = $5, 
+           photo_analysis = $6, dpe = $7, estimated_works = $8, 
+           estimated_rent = $9, gross_yield = $10,
+           plu_zone_code = $11, plu_zone_type = $12, 
+           plu_constructibilite = $13, plu_conseil = $14
+         WHERE id = $15`,
+        [
+          avgPriceM2,
+          listingPriceM2,
+          priceGapPercent,
+          aiPitch,
+          comparableSales.length,
+          photoAnalysis,
+          profitability.dpe,
+          profitability.estimated_works,
+          profitability.estimated_rent,
+          profitability.gross_yield,
+          pluInfo?.zone_code || null,
+          pluInfo?.zone_type || null,
+          pluInfo?.constructibilite || null,
+          pluInfo?.conseil_investissement || null,
+          listing.id,
+        ],
+      );
+
+      // 🚫 Éviter les doublons d'alerte
       const alreadySent = await pool.query(
         "SELECT id FROM email_alerts WHERE listing_id = $1 AND DATE(sent_at) = CURRENT_DATE",
         [listing.id],
@@ -569,6 +593,10 @@ Rédige un message WhatsApp au propriétaire. Dis-lui qu'il passe à côté de $
           estimated_works: profitability.estimated_works,
           estimated_rent: profitability.estimated_rent,
           gross_yield: profitability.gross_yield,
+          plu_zone_code: pluInfo?.zone_code || null,
+          plu_zone_type: pluInfo?.zone_type || null,
+          plu_constructibilite: pluInfo?.constructibilite || null,
+          plu_conseil: pluInfo?.conseil_investissement || null,
         });
         await pool.query("INSERT INTO email_alerts (listing_id) VALUES ($1)", [
           listing.id,
