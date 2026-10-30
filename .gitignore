@@ -18,6 +18,7 @@ yarn-error.log*
 browser-profile/
 playwright-report/
 test-results/
+data/valeursfoncieres-2025.txt 
 
 # --- Docker ---
 docker-compose.override.yml

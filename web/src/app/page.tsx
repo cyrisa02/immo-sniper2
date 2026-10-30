@@ -21,6 +21,11 @@ interface Listing {
   comparable_sales_count: number;
   lon: number;
   lat: number;
+  photo_analysis?: string;
+  dpe?: string;
+  estimated_works?: number;
+  estimated_rent?: number;
+  gross_yield?: number;
 }
 
 interface HistoryEntry {
@@ -450,6 +455,14 @@ function ListingCard({ listing }: { listing: Listing }) {
     }
   };
 
+  //  Conversion explicite (Postgres retourne DECIMAL/NUMERIC en string)
+  const listingPriceM2 = Number(listing.listing_price_m2) || 0;
+  const dvfAvgPriceM2 = Number(listing.dvf_avg_price_m2) || 0;
+  const priceGapPercent = Number(listing.price_gap_percent) || 0;
+  const estimatedWorks = Number(listing.estimated_works) || 0;
+  const estimatedRent = Number(listing.estimated_rent) || 0;
+  const grossYield = Number(listing.gross_yield) || 0;
+
   return (
     <div
       className={`bg-white rounded-lg shadow-md p-6 border-l-4 ${
@@ -472,8 +485,8 @@ function ListingCard({ listing }: { listing: Listing }) {
               : "bg-gray-100 text-gray-600"
           }`}
         >
-          {listing.price_gap_percent > 0 ? "+" : ""}
-          {listing.price_gap_percent.toFixed(1)}%
+          {priceGapPercent > 0 ? "+" : ""}
+          {priceGapPercent.toFixed(1)}%
         </span>
       </div>
 
@@ -482,14 +495,51 @@ function ListingCard({ listing }: { listing: Listing }) {
           {listing.price_eur.toLocaleString("fr-FR")} €
         </div>
         <div className="text-sm text-gray-600">
-          {listing.listing_price_m2.toFixed(0)} €/m²
-          <span className="text-gray-400">
-            {" "}
-            (quartier: {listing.dvf_avg_price_m2.toFixed(0)} €/m²)
-          </span>
+          {listingPriceM2 > 0
+            ? `${listingPriceM2.toFixed(0)} €/m²`
+            : "Non analysé"}
+          {dvfAvgPriceM2 > 0 && (
+            <span className="text-gray-400">
+              {" "}
+              (quartier: {dvfAvgPriceM2.toFixed(0)} €/m²)
+            </span>
+          )}
         </div>
       </div>
 
+      {/*  Bloc rentabilité (uniquement pour les opportunités analysées) */}
+      {listing.is_underpriced && listingPriceM2 > 0 && (
+        <div className="mb-4 grid grid-cols-3 gap-2 text-xs">
+          <div className="bg-orange-50 p-2 rounded">
+            <div className="text-orange-600 font-medium">Travaux</div>
+            <div className="font-bold">
+              {estimatedWorks.toLocaleString("fr-FR")} €
+            </div>
+          </div>
+          <div className="bg-blue-50 p-2 rounded">
+            <div className="text-blue-600 font-medium">Loyer</div>
+            <div className="font-bold">{estimatedRent} €/mois</div>
+          </div>
+          <div className="bg-green-50 p-2 rounded">
+            <div className="text-green-600 font-medium">Rentabilité</div>
+            <div className="font-bold">{grossYield.toFixed(1)}%</div>
+          </div>
+        </div>
+      )}
+
+      {/*  Diagnostic photos */}
+      {listing.photo_analysis && (
+        <div className="mb-4">
+          <div className="text-xs font-semibold text-gray-500 mb-1">
+            Diagnostic photos
+          </div>
+          <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded">
+            {listing.photo_analysis}
+          </p>
+        </div>
+      )}
+
+      {/*  Pitch IA */}
       {listing.ai_pitch && (
         <div className="mb-4">
           <div className="text-xs font-semibold text-gray-500 mb-1">

@@ -1,0 +1,354 @@
+{
+  "communes": [
+    {
+      "insee": "60057",
+      "name": "Beauvais",
+      "center": { "lat": 49.4295, "lon": 2.0807 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre-ville dense",
+          "constructibilite": "Zone très dense, extensions limitées",
+          "conseil": "Forte demande locative, idéal pour du locatif meublé"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles sous conditions de COS",
+          "conseil": "Bon potentiel d'extension, idéal familles"
+        },
+        {
+          "code": "UC",
+          "type": "urbaine",
+          "libelle": "Habitat collectif",
+          "constructibilite": "Immeubles collectifs autorisés",
+          "conseil": "Potentiel de division en plusieurs lots"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser ouverte",
+          "constructibilite": "Constructible si raccordement aux réseaux",
+          "conseil": "Fort potentiel de valorisation à moyen terme"
+        },
+        {
+          "code": "2AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser réservée",
+          "constructibilite": "Non constructible à court terme",
+          "conseil": "Spéculation long terme uniquement"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible sauf dérogation",
+          "conseil": "À éviter sauf projet agricole"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    },
+    {
+      "insee": "60159",
+      "name": "Compiègne",
+      "center": { "lat": 49.4178, "lon": 2.8214 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre-ville",
+          "constructibilite": "Zone dense, extensions limitées",
+          "conseil": "Forte demande locative étudiante et jeune actif"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles",
+          "conseil": "Bon potentiel familial"
+        },
+        {
+          "code": "UC",
+          "type": "urbaine",
+          "libelle": "Habitat collectif",
+          "constructibilite": "Immeubles autorisés",
+          "conseil": "Potentiel de division"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser",
+          "constructibilite": "Constructible avec réseaux",
+          "conseil": "Potentiel de valorisation"
+        },
+        {
+          "code": "2AU",
+          "type": "à urbaniser",
+          "libelle": "Zone réservée",
+          "constructibilite": "Non constructible court terme",
+          "conseil": "Spéculation long terme"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    },
+    {
+      "insee": "02691",
+      "name": "Soissons",
+      "center": { "lat": 49.3811, "lon": 3.3236 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre-ville",
+          "constructibilite": "Zone dense",
+          "conseil": "Demande locative modérée"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles",
+          "conseil": "Bon potentiel"
+        },
+        {
+          "code": "UC",
+          "type": "urbaine",
+          "libelle": "Habitat collectif",
+          "constructibilite": "Immeubles autorisés",
+          "conseil": "Potentiel de division"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser",
+          "constructibilite": "Constructible avec réseaux",
+          "conseil": "Potentiel de valorisation"
+        },
+        {
+          "code": "2AU",
+          "type": "à urbaniser",
+          "libelle": "Zone réservée",
+          "constructibilite": "Non constructible",
+          "conseil": "Spéculation long terme"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    },
+    {
+      "insee": "60395",
+      "name": "Méru",
+      "center": { "lat": 49.2289, "lon": 2.1303 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre",
+          "constructibilite": "Zone dense",
+          "conseil": "Petit marché locatif"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles",
+          "conseil": "Bon potentiel"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser",
+          "constructibilite": "Constructible",
+          "conseil": "Potentiel de développement"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    },
+    {
+      "insee": "60141",
+      "name": "Clermont",
+      "center": { "lat": 49.3789, "lon": 2.4125 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre",
+          "constructibilite": "Zone dense",
+          "conseil": "Demande locative modérée"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles",
+          "conseil": "Bon potentiel"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser",
+          "constructibilite": "Constructible",
+          "conseil": "Potentiel de développement"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    },
+    {
+      "insee": "60176",
+      "name": "Creil",
+      "center": { "lat": 49.2619, "lon": 2.4747 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre-ville",
+          "constructibilite": "Zone dense",
+          "conseil": "Forte demande locative, marché tendu"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles",
+          "conseil": "Bon potentiel locatif"
+        },
+        {
+          "code": "UC",
+          "type": "urbaine",
+          "libelle": "Habitat collectif",
+          "constructibilite": "Immeubles autorisés",
+          "conseil": "Potentiel de division"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser",
+          "constructibilite": "Constructible avec réseaux",
+          "conseil": "Fort potentiel de valorisation"
+        },
+        {
+          "code": "2AU",
+          "type": "à urbaniser",
+          "libelle": "Zone réservée",
+          "constructibilite": "Non constructible court terme",
+          "conseil": "Spéculation long terme"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    },
+    {
+      "insee": "60282",
+      "name": "Nogent-sur-Oise",
+      "center": { "lat": 49.2558, "lon": 2.4808 },
+      "zones": [
+        {
+          "code": "UA",
+          "type": "urbaine",
+          "libelle": "Centre",
+          "constructibilite": "Zone dense",
+          "conseil": "Demande locative forte (proximité Creil)"
+        },
+        {
+          "code": "UB",
+          "type": "urbaine",
+          "libelle": "Habitat individuel",
+          "constructibilite": "Extensions possibles",
+          "conseil": "Bon potentiel"
+        },
+        {
+          "code": "1AU",
+          "type": "à urbaniser",
+          "libelle": "Zone à urbaniser",
+          "constructibilite": "Constructible",
+          "conseil": "Potentiel de développement"
+        },
+        {
+          "code": "A",
+          "type": "agricole",
+          "libelle": "Zone agricole",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        },
+        {
+          "code": "N",
+          "type": "naturelle",
+          "libelle": "Zone naturelle",
+          "constructibilite": "Non constructible",
+          "conseil": "À éviter"
+        }
+      ]
+    }
+  ]
+}
