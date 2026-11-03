@@ -30,3 +30,25 @@ C'est la méthode la plus fiable et indétectable :
     Clique sur "Créer une alerte" (cloche en haut à droite)
     Configure la fréquence : "Immédiat" pour être réactif
     Quand tu reçois un email → copie les URLs dans urls.txt
+
+
+Ouvrir le Planificateur
+
+    Appuie sur Win + R, tape taskschd.msc, Entrée
+    Ou cherche "Planificateur de tâches" dans le menu Démarrer
+
+Étape 2 : Créer la tâche
+
+    Clic droit sur Bibliothèque du Planificateur → Créer une tâche...
+    Onglet Général :
+        Nom : ImmoSniper-Analyse
+        ✅ Exécuter avec les autorisations maximales
+        ✅ Exécuter que l'utilisateur soit connecté ou non
+    Onglet Déclencheurs → Nouveau :
+        Débuter la tâche : Selon un programme
+        Quotidien, à partir de 08:00
+        ✅ Répéter la tâche toutes les : 1 heure
+        Pendant : 16 heures
+    Onglet Actions → Nouvelle :
+        Action : Démarrer un programme
+        Programme/script : C:\Users\claud\AppData\Roaming\npm\npx.cmd

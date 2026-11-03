@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Immo Sniper — Mode d'emploi</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: #1f2937;
+        background: #f9fafb;
+      }
+      header {
+        background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+      }
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.95;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        color: #16a34a;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #dcfce7;
+        padding-bottom: 10px;
+      }
+      h3 {
+        color: #374151;
+        margin: 20px 0 10px;
+        font-size: 1.3rem;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      ul,
+      ol {
+        margin: 15px 0 15px 30px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .screenshot {
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        background: #f3f4f6;
+        text-align: center;
+      }
+      .screenshot img {
+        max-width: 100%;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .screenshot .placeholder {
+        background: white;
+        border: 2px solid #e5e7eb;
+        padding: 40px 20px;
+        border-radius: 6px;
+        color: #6b7280;
+        font-style: italic;
+      }
+      .screenshot .caption {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #4b5563;
+      }
+      .tip {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .tip strong {
+        color: #92400e;
+      }
+      .warning {
+        background: #fee2e2;
+        border-left: 4px solid #dc2626;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .warning strong {
+        color: #991b1b;
+      }
+      .success {
+        background: #dcfce7;
+        border-left: 4px solid #16a34a;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .success strong {
+        color: #166534;
+      }
+      code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+      }
+      .step {
+        display: flex;
+        gap: 15px;
+        margin: 20px 0;
+        align-items: flex-start;
+      }
+      .step-number {
+        background: #16a34a;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+      .step-content {
+        flex: 1;
+      }
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #e5e7eb;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background: #f9fafb;
+        font-weight: 600;
+      }
+      tr:nth-child(even) {
+        background: #f9fafb;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🎯 Immo Sniper</h1>
+      <p>
+        Mode d'emploi — Détectez les opportunités immobilières avant tout le
+        monde
+      </p>
+    </header>
+
+    <div class="container">
+      <!-- INTRODUCTION -->
+      <section>
+        <h2>👋 Bienvenue</h2>
+        <p>
+          Immo Sniper est un assistant qui surveille le marché immobilier pour
+          vous. Il analyse automatiquement les annonces, les compare aux ventes
+          réelles du quartier, et vous alerte
+          <strong>uniquement sur les bonnes affaires</strong>.
+        </p>
+        <p>
+          Ce guide vous explique comment configurer et utiliser l'outil au
+          quotidien.
+        </p>
+      </section>
+
+      <!-- COMMENT CA MARCHE -->
+      <section>
+        <h2>️ Comment ça marche</h2>
+        <p>Le système fonctionne en 4 étapes automatiques :</p>
+        <ol>
+          <li>
+            <strong>Collecte</strong> — Les alertes email SeLoger et Leboncoin
+            sont lues automatiquement
+          </li>
+          <li>
+            <strong>Analyse</strong> — Chaque annonce est comparée aux ventes
+            réelles du quartier (base DVF)
+          </li>
+          <li>
+            <strong>Qualification</strong> — Rentabilité, travaux, PLU et pitch
+            IA sont calculés
+          </li>
+          <li>
+            <strong>Alerte</strong> — Vous recevez une notification Telegram +
+            email si opportunité détectée
+          </li>
+        </ol>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong> À INSÉRER :</strong> Schéma du flux complet<br />
+            <em
+              >Capture d'écran montrant le diagramme : Email SeLoger/LBC →
+              Script analyse → Base de données → Telegram + Dashboard</em
+            >
+          </div>
+          <div class="caption">
+            Figure 1 — Architecture simplifiée du système
+          </div>
+        </div>
+      </section>
+
+      <!-- ETAPE 1 : ALERTES SELOGER ET LBC -->
+      <section>
+        <h2>📬 Étape 1 — Configurer vos alertes SeLoger et Leboncoin</h2>
+        <p>
+          Immo Sniper se nourrit des alertes email que vous créez sur SeLoger et
+          Leboncoin. C'est la <strong>source de données</strong> du système.
+        </p>
+
+        <h3>Sur SeLoger</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            Allez sur
+            <a href="https://www.seloger.com" target="_blank">seloger.com</a> et
+            lancez une recherche avec vos critères (ville, type de bien, prix
+            max, surface min).
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            Cliquez sur <strong>"Créer une alerte email"</strong> en haut de la
+            page de résultats.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            Entrez l'adresse email de votre boîte Gmail dédiée (ex:
+            <code>immo.sniper@gmail.com</code>).
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Page de création d'alerte SeLoger<br />
+            <em
+              >Capture montrant le formulaire "Créer une alerte" avec les
+              critères remplis (ex: Maison, Beauvais, 100 000€ - 300 000€, min
+              60m²) et l'email de destination</em
+            >
+          </div>
+          <div class="caption">Figure 2 — Création d'une alerte SeLoger</div>
+        </div>
+
+        <h3>Sur Leboncoin</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            Allez sur
+            <a href="https://www.leboncoin.fr" target="_blank">leboncoin.fr</a>
+            → Catégorie "Ventes immobilières" → Filtrez par département et
+            critères.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            Cliquez sur <strong>"Sauvegarder la recherche"</strong> puis activez
+            les notifications email.
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Page de recherche Leboncoin avec
+            filtres actifs<br />
+            <em
+              >Capture montrant la page de résultats avec les filtres appliqués
+              (ex: "maison compiègne", Oise 60, prix max 300 000€) et le bouton
+              "Sauvegarder la recherche"</em
+            >
+          </div>
+          <div class="caption">
+            Figure 3 — Recherche sauvegardée sur Leboncoin
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 Conseil :</strong> Créez plusieurs alertes avec des
+          critères différents (maison/appartement, différentes villes,
+          différentes fourchettes de prix) pour couvrir un maximum
+          d'opportunités.
+        </div>
+      </section>
+
+      <!-- ETAPE 2 : GMAIL -->
+      <section>
+        <h2>📧 Étape 2 — Configurer Gmail</h2>
+        <p>
+          Nous recommandons d'utiliser une
+          <strong>boîte Gmail dédiée</strong> (ex:
+          <code>immo.sniper@gmail.com</code>) pour recevoir uniquement les
+          alertes immobilières. Cela évite de polluer votre boîte principale.
+        </p>
+
+        <h3>Créer un filtre automatique</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            Dans Gmail, cliquez sur l'icône de recherche avancée (les sliders à
+            droite de la barre de recherche).
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            Dans le champ <strong>"De"</strong>, entrez :
+            <code>contact@seloger.com OR alertes@leboncoin.fr</code>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            Cliquez sur <strong>"Créer un filtre"</strong> puis cochez :
+            <ul>
+              <li>✅ Appliquer le label "Immo Sniper"</li>
+              <li>✅ Archiver (ignorer la boîte de réception)</li>
+              <li>✅ Marquer comme important</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Fenêtre de création de filtre
+            Gmail<br />
+            <em
+              >Capture montrant le formulaire "Créer un filtre" avec le champ
+              "De" rempli (contact@seloger.com OR alertes@leboncoin.fr) et les
+              options cochées : "Appliquer le label", "Archiver", "Marquer comme
+              important"</em
+            >
+          </div>
+          <div class="caption">Figure 4 — Configuration du filtre Gmail</div>
+        </div>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Boîte Gmail avec le label "Immo
+            Sniper" appliqué<br />
+            <em
+              >Capture montrant la boîte de réception Gmail avec le label coloré
+              "Immo Sniper" dans la colonne de gauche, et quelques emails
+              d'alerte SeLoger/LBC archivés sous ce label</em
+            >
+          </div>
+          <div class="caption">
+            Figure 5 — Résultat : emails triés automatiquement
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 Pourquoi une boîte dédiée ?</strong> Immo Sniper a besoin
+          d'accéder à votre boîte mail pour lire les alertes. Utiliser une boîte
+          dédiée limite les risques et garde votre boîte personnelle privée.
+        </div>
+      </section>
+
+      <!-- ETAPE 3 : TELEGRAM -->
+      <section>
+        <h2>📱 Étape 3 — Recevoir les alertes sur Telegram</h2>
+        <p>
+          Telegram est le canal <strong>le plus rapide</strong> pour recevoir
+          les opportunités. Une notification arrive sur votre téléphone en
+          quelques secondes après détection.
+        </p>
+
+        <h3>Configuration en 3 minutes</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            Installez
+            <a href="https://telegram.org" target="_blank">Telegram</a> sur
+            votre téléphone si ce n'est pas déjà fait.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            Dans Telegram, cherchez le bot <strong>@BotFather</strong> et
+            envoyez-lui la commande <code>/newbot</code>. Suivez les
+            instructions pour créer votre bot (nom + username).
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            BotFather vous donne un <strong>token</strong> (ex:
+            <code>123456789:ABCdefGHI...</code>). Copiez-le.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            Envoyez un message à votre nouveau bot (cherchez-le par son
+            username). Puis récupérez votre <strong>Chat ID</strong> en visitant
+            : <code>https://api.telegram.org/bot[VOTRE_TOKEN]/getUpdates</code>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            Ajoutez le token et le Chat ID dans le fichier <code>.env</code> de
+            l'application.
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Conversation avec BotFather dans
+            Telegram<br />
+            <em
+              >Capture montrant l'échange avec @BotFather : commande /newbot
+              envoyée, questions sur le nom du bot, et réponse finale avec le
+              token mis en évidence (encadré en rouge)</em
+            >
+          </div>
+          <div class="caption">
+            Figure 6 — Création du bot Telegram via BotFather
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Exemple de notification Telegram
+            reçue<br />
+            <em
+              >Capture d'une vraie notification Telegram montrant : titre de
+              l'annonce, prix, écart vs marché, loyer estimé, rentabilité, zone
+              PLU, et pitch IA avec lien vers l'annonce</em
+            >
+          </div>
+          <div class="caption">Figure 7 — Exemple de notification Telegram</div>
+        </div>
+
+        <div class="success">
+          <strong>✅ Avantage Telegram :</strong> Les notifications arrivent
+          instantanément sur votre téléphone, même en déplacement. Vous pouvez
+          agir en quelques minutes, avant les autres acheteurs.
+        </div>
+      </section>
+
+      <!-- ETAPE 4 : DASHBOARD -->
+      <section>
+        <h2>️ Étape 4 — Utiliser le dashboard</h2>
+        <p>
+          Le dashboard est accessible à l'adresse
+          <code>http://localhost:3000</code> (ou l'URL de votre serveur). Il
+          centralise toutes les analyses.
+        </p>
+
+        <h3>Les 4 indicateurs en haut</h3>
+        <table>
+          <tr>
+            <th>Indicateur</th>
+            <th>Signification</th>
+          </tr>
+          <tr>
+            <td><strong>Analyses</strong></td>
+            <td>Nombre de fois où le script a tourné</td>
+          </tr>
+          <tr>
+            <td><strong>Opportunités</strong></td>
+            <td>Nombre total de biens sous-évalués détectés</td>
+          </tr>
+          <tr>
+            <td><strong>Gain potentiel cumulé</strong></td>
+            <td>
+              Somme des plus-values théoriques (prix quartier − prix annonce) ×
+              surface
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Écart moyen</strong></td>
+            <td>
+              Écart moyen en % entre prix des annonces et prix du quartier
+            </td>
+          </tr>
+        </table>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Dashboard principal avec les 4
+            cartes d'indicateurs<br />
+            <em
+              >Capture du haut du dashboard montrant les 4 cartes : "Analyses:
+              15", "Opportunités: 27", "Gain potentiel cumulé: 2 232 358 €",
+              "Écart moyen: -17.9%"</em
+            >
+          </div>
+          <div class="caption">
+            Figure 8 — Les indicateurs clés du dashboard
+          </div>
+        </div>
+
+        <h3>La carte des opportunités</h3>
+        <p>La carte affiche toutes les annonces géolocalisées :</p>
+        <ul>
+          <li>
+            🟢 <strong>Points verts</strong> = opportunités sous-évaluées (écart
+            &lt; -10%)
+          </li>
+          <li><strong>Points gris</strong> = annonces au prix du marché</li>
+        </ul>
+        <p>
+          <strong>Survolez</strong> un point pour voir un résumé (adresse, prix,
+          prix/m²).<br />
+          <strong>Cliquez</strong> sur un point pour voir le détail complet
+          (rentabilité, PLU, lien annonce).
+        </p>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Carte avec points verts et gris,
+            popup ouverte<br />
+            <em
+              >Capture de la carte Leaflet montrant plusieurs points (verts et
+              gris) sur Beauvais/Compiègne, avec un popup ouvert sur un point
+              vert affichant : adresse, prix, prix/m² annonce vs quartier, écart
+              %, badge "Opportunité détectée", loyer, rentabilité, zone PLU, et
+              bouton "Voir l'annonce"</em
+            >
+          </div>
+          <div class="caption">
+            Figure 9 — La carte interactive avec popup détaillé
+          </div>
+        </div>
+
+        <h3>La liste des annonces</h3>
+        <p>
+          Sous la carte, chaque annonce est affichée sous forme de carte avec :
+        </p>
+        <ul>
+          <li>Prix, surface, nombre de pièces</li>
+          <li>Écart vs le marché (en %)</li>
+          <li>
+            3 mini-cartes colorées :
+            <span style="color: #ea580c; font-weight: bold">Travaux</span>
+            (orange),
+            <span style="color: #2563eb; font-weight: bold">Loyer</span> (bleu),
+            <span style="color: #16a34a; font-weight: bold">Rentabilité</span>
+            (vert)
+          </li>
+          <li>Le pitch IA rédigé automatiquement</li>
+          <li>Un bouton "Copier" pour envoyer le pitch au propriétaire</li>
+        </ul>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Carte d'annonce avec les 3
+            indicateurs colorés<br />
+            <em
+              >Capture d'une carte d'opportunité montrant : titre "Compiègne
+              60200 Saint-Lazare", prix 166 000 €, écart -27.9%, puis 3 cartes
+              côte à côte : "Travaux: 0 €" (fond orange), "Loyer: 950 €/mois"
+              (fond bleu), "Rentabilité: 6.9%" (fond vert), puis le pitch IA en
+              dessous avec le bouton "Copier"</em
+            >
+          </div>
+          <div class="caption">
+            Figure 10 — Détail d'une opportunité avec rentabilité
+          </div>
+        </div>
+      </section>
+
+      <!-- ETAPE 5 : LECTURE -->
+      <section>
+        <h2>📖 Étape 5 — Lire une opportunité</h2>
+        <p>
+          Quand vous recevez une alerte, voici comment interpréter les
+          informations :
+        </p>
+
+        <table>
+          <tr>
+            <th>Information</th>
+            <th>Comment la lire</th>
+          </tr>
+          <tr>
+            <td><strong>Écart vs marché</strong></td>
+            <td>
+              <code>-27.9%</code> signifie que l'annonce est 27.9% moins chère
+              que la moyenne du quartier. Plus le chiffre est négatif, plus
+              l'affaire est intéressante.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Gain potentiel</strong></td>
+            <td>
+              C'est la plus-value <em>théorique</em> si vous revendez au prix du
+              quartier. À prendre comme un ordre de grandeur, pas une promesse.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Rentabilité brute</strong></td>
+            <td>
+              <code>(Loyer × 12) / (Prix + Travaux) × 100</code>. Au-dessus de
+              6% = bon investissement locatif.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Zone PLU</strong></td>
+            <td>
+              <code>UA</code> = centre-ville dense, <code>UB</code> =
+              résidentiel avec extensions possibles, <code>1AU</code> =
+              constructible à moyen terme.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Pitch IA</strong></td>
+            <td>
+              Message prêt à envoyer au propriétaire. Personnalisez-le avant
+              envoi.
+            </td>
+          </tr>
+        </table>
+
+        <div class="warning">
+          <strong>️ Attention :</strong> Un écart important peut cacher un vice
+          (travaux lourds, nuisance, copropriété en difficulté). Le pitch IA est
+          un point de départ, pas une vérité absolue. Vérifiez toujours sur
+          place.
+        </div>
+      </section>
+
+      <!-- ETAPE 6 : ACTIONS -->
+      <section>
+        <h2>Étape 6 — Agir vite</h2>
+        <p>
+          Les meilleures affaires partent en <strong>moins de 2 heures</strong>.
+          Voici la marche à suivre :
+        </p>
+        <ol>
+          <li>
+            <strong>Réception de l'alerte Telegram</strong> → Ouvrez-la
+            immédiatement
+          </li>
+          <li>
+            <strong>Vérification rapide</strong> → Cliquez sur le lien de
+            l'annonce, regardez les photos
+          </li>
+          <li>
+            <strong>Copie du pitch</strong> → Sur le dashboard, cliquez "Copier"
+            sous le pitch IA
+          </li>
+          <li>
+            <strong>Contact propriétaire</strong> → Adaptez le message et
+            envoyez-le (SMS, email, ou via la plateforme)
+          </li>
+          <li><strong>Visite</strong> → Proposez un créneau dans les 24h</li>
+        </ol>
+
+        <div class="screenshot">
+          <div class="placeholder">
+            <strong>📸 À INSÉRER :</strong> Notification Telegram sur téléphone
+            + dashboard ouvert sur ordinateur<br />
+            <em
+              >Capture montrant un téléphone avec une notification Telegram Immo
+              Sniper ouverte, et à côté un écran d'ordinateur avec le dashboard
+              affichant la même opportunité, le curseur sur le bouton
+              "Copier"</em
+            >
+          </div>
+          <div class="caption">
+            Figure 11 — Workflow idéal : Telegram + Dashboard en parallèle
+          </div>
+        </div>
+
+        <div class="success">
+          <strong>✅ Astuce pro :</strong> Préparez un template de message dans
+          votre téléphone avec le pitch type. Quand l'alerte arrive, vous n'avez
+          plus qu'à personnaliser 2-3 détails et envoyer.
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2>❓ Questions fréquentes</h2>
+
+        <h3>Pourquoi certaines annonces n'ont pas de point sur la carte ?</h3>
+        <p>
+          Les annonces extraites depuis les emails n'ont pas toujours de
+          coordonnées GPS précises. Elles apparaissent dans la liste mais pas
+          sur la carte. Un script de géocodage peut être lancé pour corriger ça.
+        </p>
+
+        <h3>Le "gain potentiel" est-il réaliste ?</h3>
+        <p>
+          C'est une estimation théorique basée sur le prix moyen du quartier. En
+          pratique, la revente au prix du quartier dépend de l'état du bien, du
+          marché local, et du timing. Utilisez-le comme
+          <strong>ordre de grandeur</strong>, pas comme garantie.
+        </p>
+
+        <h3>Pourquoi je ne reçois pas d'alertes Telegram ?</h3>
+        <p>Vérifiez dans l'ordre :</p>
+        <ul>
+          <li>Le bot Telegram a-t-il bien été créé ?</li>
+          <li>
+            Avez-vous envoyé au moins un message au bot (pour l'activer) ?
+          </li>
+          <li>
+            Le token et le Chat ID sont-ils corrects dans le fichier
+            <code>.env</code> ?
+          </li>
+          <li>
+            Y a-t-il des opportunités détectées ? (sinon, pas d'alerte envoyée)
+          </li>
+        </ul>
+
+        <h3>Comment ajouter une nouvelle ville ?</h3>
+        <p>
+          Créez simplement une nouvelle alerte email sur SeLoger ou Leboncoin
+          avec la ville souhaitée. Le système la détectera automatiquement au
+          prochain cycle d'analyse.
+        </p>
+
+        <h3>À quelle fréquence le système analyse-t-il les annonces ?</h3>
+        <p>
+          Par défaut, l'analyse se lance manuellement via le bouton "Relancer
+          l'analyse" du dashboard, ou automatiquement via un cron job (configuré
+          sur le serveur).
+        </p>
+      </section>
+
+      <!-- SUPPORT -->
+      <section>
+        <h2>Besoin d'aide ?</h2>
+        <p>
+          Si vous rencontrez un problème ou souhaitez adapter l'outil à vos
+          besoins spécifiques, contactez l'administrateur du système.
+        </p>
+        <p>Le code source est disponible sur le dépôt GitHub du projet.</p>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        Immo Sniper — Mode d'emploi v1.0 — Dernière mise à jour : octobre 2026
+      </p>
+    </footer>
+  </body>
+</html>
