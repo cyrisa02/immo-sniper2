@@ -1,3 +1,8 @@
+Ouvrir le container docker 
+puis dans le repertoire web, npm run dev
+
+
+
 Solution long terme (recommandée) : les alertes email comme source
 C'est la méthode la plus fiable et indétectable :
 

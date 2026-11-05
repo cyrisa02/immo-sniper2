@@ -200,6 +200,25 @@
         </p>
       </section>
 
+        <!-- SECTION PROPTECH -->
+  <section>
+    <h2>💡 Qu'est-ce qu'une solution PropTech ?</h2>
+    <p>
+      <strong>PropTech</strong> (contraction de <em>Property</em> et <em>Technology</em>) désigne les outils qui utilisent la technologie pour transformer le marché immobilier traditionnel.
+    </p>
+    <p>
+      Immo Sniper est une solution PropTech car elle combine trois innovations :
+    </p>
+    <ul>
+      <li><strong>Automatisation</strong> : la collecte et l'analyse des annonces se font 24h/24 sans intervention humaine</li>
+      <li><strong>Intelligence Artificielle</strong> : analyse des photos, estimation des loyers, interprétation des règles d'urbanisme (PLU) et rédaction de pitches commerciaux</li>
+      <li><strong>Data géospatiale</strong> : croisement de la position GPS d'une annonce avec les ventes réelles du quartier (base DVF) et les zones d'urbanisme via PostGIS</li>
+    </ul>
+    <div class="success">
+      <strong>✅ En résumé :</strong> Immo Sniper transforme des données immobilières brutes et dispersées en <strong>décisions d'investissement actionnables en quelques secondes</strong>. C'est exactement ce que les investisseurs, chasseurs immobiliers et agents recherchent aujourd'hui pour prendre de l'avance sur leurs concurrents.
+    </div>
+  </section>
+
       <!-- COMMENT CA MARCHE -->
       <section>
         <h2>️ Comment ça marche</h2>
@@ -224,13 +243,10 @@
         </ol>
 
         <div class="screenshot">
-          <div class="placeholder">
-            <strong> À INSÉRER :</strong> Schéma du flux complet<br />
-            <em
-              >Capture d'écran montrant le diagramme : Email SeLoger/LBC →
-              Script analyse → Base de données → Telegram + Dashboard</em
-            >
-          </div>
+          <img
+            src="./screenshots/fig1.jpg"
+            alt="Schéma du flux : Email SeLoger/LBC → Script analyse → Base de données → Telegram + Dashboard"
+          />
           <div class="caption">
             Figure 1 — Architecture simplifiée du système
           </div>
@@ -270,17 +286,19 @@
           </div>
         </div>
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Page de création d'alerte SeLoger<br />
-            <em
-              >Capture montrant le formulaire "Créer une alerte" avec les
+       
+          <div class="screenshot">
+            <img
+              src="./screenshots/fig2.png"
+              alt="Créer une alerte - avec les
               critères remplis (ex: Maison, Beauvais, 100 000€ - 300 000€, min
-              60m²) et l'email de destination</em
-            >
+              60m²) et l'email de destination"
+            />
+            <div class="caption">
+              Figure 2 — Créer une alerte SeLoger
+            </div>
           </div>
-          <div class="caption">Figure 2 — Création d'une alerte SeLoger</div>
-        </div>
+          
 
         <h3>Sur Leboncoin</h3>
         <div class="step">
@@ -300,20 +318,20 @@
           </div>
         </div>
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Page de recherche Leboncoin avec
-            filtres actifs<br />
-            <em
-              >Capture montrant la page de résultats avec les filtres appliqués
-              (ex: "maison compiègne", Oise 60, prix max 300 000€) et le bouton
-              "Sauvegarder la recherche"</em
-            >
+      
+          <div class="screenshot">
+            <img
+              src="./screenshots/fig3.png"
+              alt="Créer une alerte - avec les
+              critères remplis (ex: Maison, Beauvais, 100 000€ - 300 000€, min
+              60m²) et l'email de destination"
+            />
+            <div class="caption">
+              Figure 3 — Créer une alerte LeBonCoin
+            </div>
           </div>
-          <div class="caption">
-            Figure 3 — Recherche sauvegardée sur Leboncoin
-          </div>
-        </div>
+
+        
 
         <div class="tip">
           <strong>💡 Conseil :</strong> Créez plusieurs alertes avec des
@@ -360,34 +378,21 @@
           </div>
         </div>
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Fenêtre de création de filtre
-            Gmail<br />
-            <em
-              >Capture montrant le formulaire "Créer un filtre" avec le champ
-              "De" rempli (contact@seloger.com OR alertes@leboncoin.fr) et les
-              options cochées : "Appliquer le label", "Archiver", "Marquer comme
-              important"</em
-            >
-          </div>
-          <div class="caption">Figure 4 — Configuration du filtre Gmail</div>
-        </div>
-
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Boîte Gmail avec le label "Immo
-            Sniper" appliqué<br />
-            <em
-              >Capture montrant la boîte de réception Gmail avec le label coloré
+        
+          <div class="screenshot">
+            <img
+              src="./screenshots/fig5.png"
+              alt="Capture montrant la boîte de réception Gmail avec le label coloré
               "Immo Sniper" dans la colonne de gauche, et quelques emails
-              d'alerte SeLoger/LBC archivés sous ce label</em
-            >
+              d'alerte SeLoger/LBC archivés sous ce label"
+            />
+            <div class="caption">
+              Figure 4 — Boîte Gmail avec le label "Immo
+              Sniper" appliqué
+            </div>
           </div>
-          <div class="caption">
-            Figure 5 — Résultat : emails triés automatiquement
-          </div>
-        </div>
+
+        
 
         <div class="tip">
           <strong>💡 Pourquoi une boîte dédiée ?</strong> Immo Sniper a besoin
@@ -445,33 +450,36 @@
           </div>
         </div>
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Conversation avec BotFather dans
-            Telegram<br />
-            <em
-              >Capture montrant l'échange avec @BotFather : commande /newbot
-              envoyée, questions sur le nom du bot, et réponse finale avec le
-              token mis en évidence (encadré en rouge)</em
-            >
-          </div>
-          <div class="caption">
-            Figure 6 — Création du bot Telegram via BotFather
-          </div>
-        </div>
+               
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Exemple de notification Telegram
-            reçue<br />
-            <em
-              >Capture d'une vraie notification Telegram montrant : titre de
-              l'annonce, prix, écart vs marché, loyer estimé, rentabilité, zone
-              PLU, et pitch IA avec lien vers l'annonce</em
-            >
+        
+          <div class="screenshot">
+            <img
+              src="./screenshots/fig6.png"
+              alt="échange avec @BotFather : commande /newbot
+              envoyée, questions sur le nom du bot, et réponse finale avec le
+              token mis en évidence (encadré en rouge)"
+            />
+            <div class="caption">
+              Figure 6 — Création du bot Telegram via BotFather
+            </div>
           </div>
-          <div class="caption">Figure 7 — Exemple de notification Telegram</div>
-        </div>
+        
+
+         
+            <div class="screenshot">
+              <img
+                src="./screenshots/fig7.png"
+                alt="Capture d'une vraie notification Telegram montrant : titre de
+                l'annonce, prix, écart vs marché, loyer estimé, rentabilité, zone
+                PLU, et pitch IA avec lien vers l'annonce"
+              />
+              <div class="caption">
+                Figure 7 — Exemple de notification Telegram
+              </div>
+            </div>
+        
+          
 
         <div class="success">
           <strong>✅ Avantage Telegram :</strong> Les notifications arrivent
@@ -518,20 +526,21 @@
           </tr>
         </table>
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Dashboard principal avec les 4
-            cartes d'indicateurs<br />
-            <em
-              >Capture du haut du dashboard montrant les 4 cartes : "Analyses:
+        
+          <div class="screenshot">
+            <img
+              src="./screenshots/fig8.png"
+              alt="Capture du haut du dashboard montrant les 4 cartes : "Analyses:
               15", "Opportunités: 27", "Gain potentiel cumulé: 2 232 358 €",
-              "Écart moyen: -17.9%"</em
-            >
+              "Écart moyen: -17.9%"
+            />
+            <div class="caption">
+              Figure 8 — Les indicateurs clés du dashboard
+            </div>
           </div>
-          <div class="caption">
-            Figure 8 — Les indicateurs clés du dashboard
-          </div>
-        </div>
+       
+
+        
 
         <h3>La carte des opportunités</h3>
         <p>La carte affiche toutes les annonces géolocalisées :</p>
@@ -549,22 +558,23 @@
           (rentabilité, PLU, lien annonce).
         </p>
 
+       
         <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Carte avec points verts et gris,
-            popup ouverte<br />
-            <em
-              >Capture de la carte Leaflet montrant plusieurs points (verts et
-              gris) sur Beauvais/Compiègne, avec un popup ouvert sur un point
-              vert affichant : adresse, prix, prix/m² annonce vs quartier, écart
-              %, badge "Opportunité détectée", loyer, rentabilité, zone PLU, et
-              bouton "Voir l'annonce"</em
-            >
-          </div>
+          <img
+            src="./screenshots/fig9.png"
+            alt="Capture de la carte Leaflet montrant plusieurs points (verts et
+            gris) sur Beauvais/Compiègne, avec un popup ouvert sur un point
+            vert affichant : adresse, prix, prix/m² annonce vs quartier, écart
+            %, badge "Opportunité détectée", loyer, rentabilité, zone PLU, et
+            bouton "Voir l'annonce""
+          />
           <div class="caption">
             Figure 9 — La carte interactive avec popup détaillé
           </div>
         </div>
+
+
+
 
         <h3>La liste des annonces</h3>
         <p>
@@ -584,23 +594,22 @@
           <li>Le pitch IA rédigé automatiquement</li>
           <li>Un bouton "Copier" pour envoyer le pitch au propriétaire</li>
         </ul>
-
         <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Carte d'annonce avec les 3
-            indicateurs colorés<br />
-            <em
-              >Capture d'une carte d'opportunité montrant : titre "Compiègne
-              60200 Saint-Lazare", prix 166 000 €, écart -27.9%, puis 3 cartes
-              côte à côte : "Travaux: 0 €" (fond orange), "Loyer: 950 €/mois"
-              (fond bleu), "Rentabilité: 6.9%" (fond vert), puis le pitch IA en
-              dessous avec le bouton "Copier"</em
-            >
-          </div>
+          <img
+            src="./screenshots/fig10.png"
+            alt="Capture d'une carte d'opportunité montrant : titre "Compiègne
+            60200 Saint-Lazare", prix 166 000 €, écart -27.9%, puis 3 cartes
+            côte à côte : "Travaux: 0 €" (fond orange), "Loyer: 950 €/mois"
+            (fond bleu), "Rentabilité: 6.9%" (fond vert), puis le pitch IA en
+            dessous avec le bouton "Copier""
+          />
           <div class="caption">
             Figure 10 — Détail d'une opportunité avec rentabilité
           </div>
+
+
         </div>
+        
       </section>
 
       <!-- ETAPE 5 : LECTURE -->
@@ -690,21 +699,7 @@
           <li><strong>Visite</strong> → Proposez un créneau dans les 24h</li>
         </ol>
 
-        <div class="screenshot">
-          <div class="placeholder">
-            <strong>📸 À INSÉRER :</strong> Notification Telegram sur téléphone
-            + dashboard ouvert sur ordinateur<br />
-            <em
-              >Capture montrant un téléphone avec une notification Telegram Immo
-              Sniper ouverte, et à côté un écran d'ordinateur avec le dashboard
-              affichant la même opportunité, le curseur sur le bouton
-              "Copier"</em
-            >
-          </div>
-          <div class="caption">
-            Figure 11 — Workflow idéal : Telegram + Dashboard en parallèle
-          </div>
-        </div>
+        
 
         <div class="success">
           <strong>✅ Astuce pro :</strong> Préparez un template de message dans
@@ -712,7 +707,98 @@
           plus qu'à personnaliser 2-3 détails et envoyer.
         </div>
       </section>
+      <!-- ANNEXE TECHNIQUE : AUTOMATISATION -->
+      <section>
+        <h2>
+          ⚙️ Annexe Technique : Automatiser l'analyse (Planificateur de tâches)
+        </h2>
+        <p>
+          Pour que le système détecte les opportunités sans intervention
+          manuelle, il est recommandé de programmer l'exécution du script
+          d'analyse à intervalles réguliers.
+        </p>
 
+        <h3>Sur Windows (Planificateur de tâches)</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            Appuie sur <code>Win + R</code>, tape <code>taskschd.msc</code> et
+            appuie sur Entrée.
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            Clic droit sur <strong>Bibliothèque du Planificateur</strong> →
+            <strong>Créer une tâche...</strong>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            Onglet <strong>Général</strong> : Nomme-la "ImmoSniper-Analyse" et
+            coche "Exécuter avec les autorisations maximales".
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            Onglet <strong>Déclencheurs</strong> → Nouveau → Débuter la tâche :
+            "Selon un programme". Règle-la pour qu'elle se répète toutes les
+            <strong>1 heure</strong> (ou 3 fois par jour : 8h, 12h, 18h).
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            Onglet <strong>Actions</strong> → Nouvelle action :
+            <ul>
+              <li>
+                Programme/script :
+                <code>C:\Users\claud\AppData\Roaming\npm\npx.cmd</code> (adapte
+                le chemin si nécessaire)
+              </li>
+              <li>
+                Ajouter des arguments :
+                <code>tsx scripts/detect-opportunities.ts --send-email</code>
+              </li>
+              <li>Démarrer dans : <code>C:\Users\claud\immo2-sniper</code></li>
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            Onglet <strong>Conditions</strong> : Coche "Exécuter la tâche même
+            si l'ordinateur est sur batterie".
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 Conseil :</strong> Ne lance pas le script toutes les 15
+          minutes si tu utilises la version gratuite de Groq (limite de 200 000
+          tokens/jour). Un lancement à 8h, 12h et 18h est un excellent compromis
+          entre réactivité et économie de tokens.
+        </div>
+
+        <h3>Sur Linux / VPS (Cron)</h3>
+        <p>
+          Si tu déploies l'application sur un serveur Linux, ouvre le cron avec
+          <code>crontab -e</code> et ajoute :
+        </p>
+        <pre
+          style="
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+          "
+        >
+# Lancer l'analyse à 8h, 12h et 18h tous les jours
+0 8,12,18 * * * cd /home/user/immo2-sniper && npx tsx scripts/detect-opportunities.ts --send-email >> /var/log/immo-sniper.log 2>&1</pre
+        >
+      </section>
       <!-- FAQ -->
       <section>
         <h2>❓ Questions fréquentes</h2>
@@ -774,10 +860,106 @@
       </section>
     </div>
 
-    <footer>
-      <p>
-        Immo Sniper — Mode d'emploi v1.0 — Dernière mise à jour : octobre 2026
-      </p>
-    </footer>
+    <footer style="
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  color: #f3f4f6;
+  padding: 30px 20px 20px;
+  margin-top: 40px;
+  border-top: 3px solid #16a34a;
+  font-size: 0.85rem;
+">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    
+    <!-- Ligne principale : 3 colonnes (ImmoSniper, Stack technique, Contact) -->
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 30px; margin-bottom: 25px;">
+      
+      <!-- Colonne 1 : Immo Sniper (À propos) -->
+      <div>
+        <h3 style="color: #16a34a; font-size: 1rem; margin-bottom: 12px; font-weight: 600;">
+          🎯 Immo Sniper
+        </h3>
+        <p style="color: #9ca3af; line-height: 1.5; margin: 0;">
+          Assistant IA de veille immobilière temps réel. Détectez les opportunités sous-évaluées avant tout le monde.
+        </p>
+        <p style="color: #6b7280; font-size: 0.75rem; margin-top: 8px;">
+          Version 1.0 — Octobre 2026
+        </p>
+      </div>
+
+      <!-- Colonne 2 : Stack technique (2 sous-colonnes internes) -->
+      <div>
+        <h3 style="color: #16a34a; font-size: 1rem; margin-bottom: 12px; font-weight: 600;">
+          ⚙️ Stack technique
+        </h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; color: #9ca3af;">
+          <span>🚀 Next.js + TypeScript</span>
+          <span>📧 Resend (Email)</span>
+          <span>🗄️ PostgreSQL + PostGIS</span>
+          <span>📱 Telegram Bot API</span>
+          <span>🤖 Groq (Qwen 3.8-27B)</span>
+          <span>🐳 Docker + Playwright</span>
+          <span>🗺️ Leaflet + OSM</span>
+          <span>🔐 JWT Auth</span>
+        </div>
+      </div>
+
+      <!-- Colonne 3 : Contact -->
+      <div>
+        <h3 style="color: #16a34a; font-size: 1rem; margin-bottom: 12px; font-weight: 600;">
+          📞 Contact
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0; color: #9ca3af; line-height: 1.8;">
+          <li>
+            <strong style="color: #d1d5db;">📧 Email :</strong> 
+            <a href="mailto:contact@alicia-gpt.com" style="color: #9ca3af; text-decoration: none;" onmouseover="this.style.color='#16a34a'" onmouseout="this.style.color='#9ca3af'">contact@alicia-gpt.com</a>
+          </li>
+          <li>
+            <strong style="color: #d1d5db;">📍 Localisation :</strong> Soissons, Hauts-de-France
+          </li>
+          <li>
+            <strong style="color: #d1d5db;">💼 LinkedIn :</strong> 
+            <a href="https://linkedin.com/in/cyril-gourdon" target="_blank" style="color: #9ca3af; text-decoration: none;" onmouseover="this.style.color='#16a34a'" onmouseout="this.style.color='#9ca3af'">Cyril Gourdon</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Séparateur fin -->
+    <div style="border-top: 1px solid #374151; padding-top: 15px;">
+      
+      <!-- Ligne du bas : Copyright + Liens légaux + Made with -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; color: #6b7280; font-size: 0.8rem;">
+        
+        <div>© 2026 AlicIA-GPT. Tous droits réservés.</div>
+
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <a href="https://www.alicia-gpt.com/mentions-legales" target="_blank" style="color: #6b7280; text-decoration: none;" onmouseover="this.style.color='#16a34a'" onmouseout="this.style.color='#6b7280'">Mentions légales</a>
+          <a href="https://www.alicia-gpt.com/politique-confidentialite" target="_blank" style="color: #6b7280; text-decoration: none;" onmouseover="this.style.color='#16a34a'" onmouseout="this.style.color='#6b7280'">Politique de confidentialité</a>
+          <a href="https://www.alicia-gpt.com/conditions-generales-d-utilisation" target="_blank" style="color: #6b7280; text-decoration: none;" onmouseover="this.style.color='#16a34a'" onmouseout="this.style.color='#6b7280'">CGU</a>
+        </div>
+
+        <div style="color: #4b5563;">Made with ❤️ in Soissons 🇫🇷</div>
+      </div>
+
+      <!-- Badge compact -->
+      <div style="margin-top: 15px; text-align: center;">
+        <span style="
+          display: inline-block;
+          background: #16a34a;
+          color: white;
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        ">
+          🟢 Solution PropTech — Propriété AlicIA-GPT
+        </span>
+      </div>
+
+    </div>
+  </div>
+</footer>
   </body>
 </html>
